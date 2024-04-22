@@ -59,18 +59,23 @@ Modificar o Eliminar lugares: Puedo cambiar el nombre de un lugar, actualizar su
 Cosas Extras:
 Implementé una forma de guardar y cargar mis datos para que no tenga que empezar desde cero cada vez que cierro y vuelvo a abrir el programa, aunque este me ha dado problemas, no funciona en su totalidad, la intencion era guardarlos para operar ahi mismo, pero no me lo ha permitido
 
+Se me complico lo que era utilizar mapas, al prinicipio todo rondaba bien, y me compilaba y todo se guardaba pero no se que cambio en el programa hice el cual provoco que se complicara mas de lo que deberia, el guardado del grafo se hace correctamente pero no se porque hay operaciones que no se realizan con exactitud incluso con problemas. Intente hacerlo inicialmente sin mapas, pero se me complico la implementacion, estoy convencido que fue mi falta de empeno en el proyecto, pero realmente a la hora de ir con mapas, inicialmente me funcionaba todo con fluidez.
+
 A la hora de lo que es el funcionamiento, primeramente intente hacerlo visual con el mismo IDE eclipse, pero me daba errores no se si era por las claes que utilizaba o que, pero al final me incline por usar la consola y en esta funciona todo bien, pero a la hora de printear la ruta me da errores, especialmente la de dijsktra intente varias cosas para que esta funcionara, cambie el grafo, lo intente hacer visual, verifique variables, verifique metodos y no encontre cual era el problema. El floyd me funcionaba, hasta que no se que cambio realize que hizo que todo mi progreso se fuera.
 
 El grafo que utilize para poder operar fue:
 
-0 2 16
-0 4 18
-0 5 10
-1 4 12
-1 5 8
-2 3 4
-2 4 3
-4 5 15
-3 0 20
+0 2 (16)
+
+0 4 (18)
+0 5 (10)
+1 4 (12)
+1 5 (8)
+2 3 (4)
+2 4 (3)
+4 5 (15)
+3 0 (20)
+
+
 
 
