@@ -8,20 +8,21 @@ public class Ejecucion {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-        	  System.out.println("\nSistema de Gestión de Rutas");
-              System.out.println("1. Conectar ubicaciones");
-              System.out.println("2. Calcular ruta más corta (Dijkstra)");
-              System.out.println("3. Calcular árbol de expansión mínima (Prim)");
-              System.out.println("4. Calcular árbol de expansión mínima (Kruskal)");
-              System.out.println("5. Calcular camino más corto entre todas las ubicaciones (Floyd-Warshall)");
-              System.out.println("6. Mostrar ubicaciones y conexiones");
-              System.out.println("7. Salir");
-              System.out.print("Seleccione una opción: ");
+        	System.out.println("\nSistema de Gestión de Rutas");
+            System.out.println("1. Conectar ubicaciones");
+            System.out.println("2. Calcular ruta más corta (Dijkstra)");
+            System.out.println("3. Calcular árbol de expansión mínima (Prim)");
+            System.out.println("4. Calcular árbol de expansión mínima (Kruskal)");
+            System.out.println("5. Calcular camino más corto entre todas las ubicaciones (Floyd-Warshall)");
+            System.out.println("6. Modificar ubicación");
+            System.out.println("7. Eliminar ubicación");
+            System.out.println("8. Mostrar ubicaciones y conexiones");
+            System.out.println("9. Salir");
+            System.out.print("Seleccione una opción: ");
               
             String input = scanner.nextLine();
 
             if (!isNumeric(input)) {
-                clearScreen();
                 System.out.println("Por favor, ingrese un número válido.");
                 continue;
             }
@@ -32,10 +33,12 @@ public class Ejecucion {
                 case 1:
                     connectLocations(routeSystem, scanner);
                     break;
-                case 2:	
+                case 2:
                     System.out.print("Ingrese el nombre de la ubicación de inicio: ");
                     String startLocationName = scanner.nextLine();
-                    routeSystem.dijkstra(new Location(startLocationName));
+                    System.out.print("Ingrese el nombre de la ubicación de destino: ");
+                    String endLocationName = scanner.nextLine();
+                    routeSystem.dijkstra(new Location(startLocationName), new Location(endLocationName));
                     break;
                 case 3:
                     routeSystem.prim();
@@ -44,18 +47,28 @@ public class Ejecucion {
                     routeSystem.kruskal();
                     break;
                 case 5:
-                    routeSystem.floydWarshall();
+                	System.out.print("Ingrese el nombre de la ubicación de inicio: ");
+                    String start = scanner.nextLine();
+                    System.out.print("Ingrese el nombre de la ubicación de destino: ");
+                    String end = scanner.nextLine();
+                    routeSystem.floydWarshall(start, end);
                     break;
                 case 6:
-                    routeSystem.displayLocations();
+                    modifyLocation(routeSystem, scanner);
                     break;
                 case 7:
+                    deleteLocation(routeSystem, scanner);
+                    break;
+                case 8:
+                    routeSystem.displayLocations();
+                    break;
+                case 9:
                     System.out.println("Saliendo del programa...");
                     scanner.close();
                     System.exit(0);
                     break;
                 default:
-                    clearScreen();
+              
                     System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
             }
         }
@@ -73,11 +86,38 @@ public class Ejecucion {
         routeSystem.addConnection(new Location(startLocationName), new Location(endLocationName), distance, time);
     }
 
-    private static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    
+    private static void modifyLocation(RouteManagementSystem routeSystem, Scanner scanner) {
+        // Mostrar las ubicaciones disponibles
+        routeSystem.displayLocations();
+
+        System.out.print("Ingrese el nombre de la ubicación que desea modificar: ");
+        String locationName = scanner.nextLine();
+
+        System.out.print("Ingrese el nuevo nombre para la ubicación: ");
+        String newLocationName = scanner.nextLine();
+
+        System.out.print("Ingrese la distancia entre las ubicaciones: ");
+        int distance = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Ingrese el tiempo para llegar entre las ubicaciones: ");
+        int time = Integer.parseInt(scanner.nextLine());
+
+        routeSystem.modifyLocation(new Location(locationName), new Location(newLocationName), distance, time);
+        System.out.println("Ubicación modificada exitosamente.");
     }
 
+    private static void deleteLocation(RouteManagementSystem routeSystem, Scanner scanner) {
+        // Mostrar las ubicaciones disponibles
+        routeSystem.displayLocations();
+
+        System.out.print("Ingrese el nombre de la ubicación que desea eliminar: ");
+        String locationName = scanner.nextLine();
+
+        routeSystem.deleteLocation(new Location(locationName));
+        System.out.println("Ubicación eliminada exitosamente.");
+    }
+    
     private static boolean isNumeric(String str) {
         return str != null && str.matches("\\d+");
     }
